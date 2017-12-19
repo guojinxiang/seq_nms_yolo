@@ -4,8 +4,6 @@
 
 ## Introduction
 
-![](img/index.jpg) 
-
 This project combines **YOLOv2**([reference](https://arxiv.org/abs/1506.02640)) and **seq-nms**([reference](https://arxiv.org/abs/1602.08465)) to realise **real time video detection**.
 
 ## Steps
@@ -35,7 +33,7 @@ python video2img.py -i input.mp4
 
 Here’s what I got from running my model over a demo video.
 
-[![Watch the video](screenshots/youtube.png)](https://www.youtube.com/watch?v=XC-3qXT0NsY)
+[![Watch the video](img/index.jpg)](https://www.youtube.com/watch?v=XC-3qXT0NsY)
 
 ## Reference
 
