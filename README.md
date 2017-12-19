@@ -31,6 +31,12 @@ python video2img.py -i input.mp4
 - Return to root directory and run `python yolo_seqnms.py` to generate output images in the `video/output` directory;
 - If you want to reconstruct a video from these output images, you can go to the video folder and run `python img2video.py -i output`. It will generate a video named `output.mp4` in the video folder.
 
+## Results
+
+Here’s what I got from running my model over a demo video.
+
+[![Watch the video](screenshots/youtube.png)](https://www.youtube.com/watch?v=XC-3qXT0NsY)
+
 ## Reference
 
 This project copies lots of code from [darknet](https://github.com/pjreddie/darknet) , [Seq-NMS](https://github.com/lrghust/Seq-NMS) and  [models](https://github.com/tensorflow/models).
