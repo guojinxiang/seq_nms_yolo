@@ -27,7 +27,6 @@ wget https://pjreddie.com/media/files/tiny-yolo-voc.weights
 - From the video directory, run:
 ```bash
 python video2img.py -i input.mp4
-python get_pkllist.py
 ```
 - Return to root directory and run `python yolo_seqnms.py` to generate output images in the `video/output` directory;
 - If you want to reconstruct a video from these output images, you can go to the video folder and run `python img2video.py -i output`. It will generate a video named `output.mp4` in the video folder.
