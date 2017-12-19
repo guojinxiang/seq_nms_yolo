@@ -2,8 +2,6 @@
 
 #### Membres: Yunyun SUN, Yutong YAN, Sixiang XU, Heng ZHANG
 
----
-
 ## Introduction
 
 ![](img/index.jpg) 
@@ -15,9 +13,9 @@ This project combines **YOLOv2**([reference](https://arxiv.org/abs/1506.02640)) 
 - Install `Tensorflow Object Detction API`([reference](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md));
 - Modify the `Makefile` file according to your environment.
 ```
-GPU=1		# 0 if your pc donesn't support CUDA
-CUDNN=1		# 0 if your pc donesn't support CUDNN
-OPENCV=1	# 0 if your pc donesn't support OPENCV
+GPU=1		# 0 if your pc doesn't support CUDA
+CUDNN=1		# 0 if your pc doesn't support CUDNN
+OPENCV=1	# 0 if your pc doesn't support OPENCV
 ```
 - `make` the project;
 - Download `yolo.weights` and `tiny-yolo.weights` by running:
