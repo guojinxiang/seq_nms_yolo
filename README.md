@@ -24,14 +24,19 @@ wget https://pjreddie.com/media/files/tiny-yolo-voc.weights
 - Copy a video file to the video directory, for example, `input.mp4`;
 - From the video directory, run:
 ```bash
-python video2img.py -i input.mp4
+python video2img.py input.mp4
 ```
-- Return to root directory and run `python yolo_seqnms.py` to generate output images in the `video/output` directory;
-- If you want to reconstruct a video from these output images, you can go to the video folder and run `python img2video.py -i output`. It will generate a video named `output.mp4` in the video folder.
+- Return to root directory and run `python yolo_seqnms.py` to generate output images in the `video/output` directory. **Attention: The scipt will fail if Tensorflow Object Detection API is not installed**;
+- If you want a fatser detect, run `python yolo_seqnms.py tiny` instead of `python yolo_seqnms.py`; 
+- If you want to reconstruct a video from these output images, you can go to the video folder and run:
+```
+python img2video.py output.mp4
+```
+It will generate a video named `output.mp4` in the video folder.
 
 ## Results
 
-Here’s what I got from running my model over a demo video.
+Here’s what I got from running my model over a demo video. Clic the image to watch the video on Youtube.
 
 [![Watch the video](img/index.jpg)](https://www.youtube.com/watch?v=XC-3qXT0NsY)
 
