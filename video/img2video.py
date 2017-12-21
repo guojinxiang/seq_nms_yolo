@@ -25,7 +25,7 @@ def play_video(video_name):
     while(True):
         ret, frame = cap.read()
         cv2.imshow('frame',frame)
-        time.sleep(0.05)    #20fps
+        time.sleep(0.1)    #10fps
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()

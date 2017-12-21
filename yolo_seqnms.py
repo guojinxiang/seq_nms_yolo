@@ -55,7 +55,10 @@ if __name__ == "__main__":
 
     # nms
     nms_begin=time.time()
-    boxes, classes, scores = dsnms(res)
+    if len(sys.argv) > 1 and sys.argv[1]=='only_person':
+        boxes, classes, scores = dsnms(res, only_person=True)
+    else:
+        boxes, classes, scores = dsnms(res)
     nms_end=time.time()
     print 'total nms: {:.4f}s'.format(nms_end - nms_begin)
 

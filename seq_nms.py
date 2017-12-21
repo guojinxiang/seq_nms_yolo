@@ -84,7 +84,7 @@ def createLinks(dets_all):
     print 'link: {:.4f}s'.format(link_end - link_begin)
     return links_all
 
-def maxPath(dets_all,links_all):
+def maxPath(dets_all,links_all,only_person):
     max_begin=time.time()
     boxes=[[] for i in dets_all[0]]
     classes=[[] for i in dets_all[0]]
@@ -97,6 +97,8 @@ def maxPath(dets_all,links_all):
                 break
             rescore(dets_cls,rootindex,maxpath,maxsum,boxes,classes,scores,cls_ind)
             deleteLink(dets_cls,links_cls,rootindex,maxpath,IOU_THRESH_DELETE)
+        if only_person:
+            break
     max_end=time.time()
     print 'max path: {:.4f}s'.format(max_end - max_begin)
     return boxes, classes, scores
@@ -205,10 +207,10 @@ def deleteLink(dets,links, rootindex, maxpath,thesh):
                     if delete_ind in priorbox:
                         priorbox.remove(delete_ind)
 
-def dsnms(res):
+def dsnms(res, only_person=False):
     dets=createInputs(res)
     links=createLinks(dets)
-    boxes, classes, scores = maxPath(dets,links)
+    boxes, classes, scores = maxPath(dets,links,only_person)
     #NMS(dets)
     # for cls_id, det_cls in enumerate(dets):
     #    for frame_id, frame in enumerate(det_cls):

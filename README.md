@@ -26,13 +26,24 @@ wget https://pjreddie.com/media/files/tiny-yolo-voc.weights
 ```bash
 python video2img.py input.mp4
 ```
-- Return to root directory and run `python yolo_seqnms.py` to generate output images in the `video/output` directory. **Attention: The scipt will fail if Tensorflow Object Detection API is not installed**;
-- If you want a fatser detect, run `python yolo_seqnms.py tiny` instead of `python yolo_seqnms.py`; 
-- If you want to reconstruct a video from these output images, you can go to the video folder and run:
+- Return to root directory and run: 
+```
+python yolo_seqnms.py
+```
+- **Attention: This scipt will fail if Tensorflow Object Detection API is not installed**;
+- If you want a fatser detect, run:
+```
+python yolo_seqnms.py tiny
+```
+- If you only want to detect person, run:
+```
+python yolo_seqnms.py only_person
+```
+- If you want to reconstruct a video from these output images, you can go to the video directory and run:
 ```
 python img2video.py output.mp4
 ```
-It will generate a video named `output.mp4` in the video folder.
+It will create and play**(at 10fps)** a video named `output.mp4`.
 
 ## Results
 
