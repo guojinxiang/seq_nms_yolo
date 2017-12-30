@@ -23,17 +23,22 @@ def createInputs(res):
     dets=[[] for i in CLASSES[1:]] #保存最终结果
     for cls_ind,cls in enumerate(CLASSES[1:]): #类
         for frame_ind,frame in enumerate(res): #帧
-            cls_boxes = np.zeros((len(res[frame_ind]), 4), dtype=np.float64)
-            cls_scores = np.zeros((len(res[frame_ind]), 1), dtype=np.float64)
+            nb_box = 0
             for box_ind, box in enumerate(frame):
-                cls_boxes[box_ind][0] = box[2][0]-box[2][2]/2
-                cls_boxes[box_ind][1] = box[2][1]-box[2][3]/2
-                cls_boxes[box_ind][2] = box[2][0]+box[2][2]/2
-                cls_boxes[box_ind][3] = box[2][1]+box[2][3]/2
                 if box[0]==cls:
-                    cls_scores[box_ind][0] = box[1]
-                else:
-                    cls_scores[box_ind][0] = 0.00001
+                    nb_box += 1
+            print 'nb_box = %d' % nb_box
+            cls_boxes = np.zeros((nb_box, 4), dtype=np.float64)
+            cls_scores = np.zeros((nb_box, 1), dtype=np.float64)
+            nb_box = 0
+            for box_ind, box in enumerate(frame):
+                if box[0]==cls:
+                    cls_boxes[nb_box][0] = box[2][0]-box[2][2]/2
+                    cls_boxes[nb_box][1] = box[2][1]-box[2][3]/2
+                    cls_boxes[nb_box][2] = box[2][0]+box[2][2]/2
+                    cls_boxes[nb_box][3] = box[2][1]+box[2][3]/2
+                    cls_scores[nb_box][0] = box[1]
+                    nb_box += 1
             cls_dets = np.hstack((cls_boxes,cls_scores)).astype(np.float64)
             dets[cls_ind].append(cls_dets)
     create_end=time.time()
@@ -92,7 +97,10 @@ def maxPath(dets_all,links_all,only_person):
     for cls_ind,links_cls in enumerate(links_all):
         dets_cls=dets_all[cls_ind]
         while True:
-            rootindex,maxpath,maxsum=findMaxPath(links_cls,dets_cls)
+            try:
+                rootindex,maxpath,maxsum=findMaxPath(links_cls,dets_cls)
+            except:
+                break
             if len(maxpath) <= 1:
                 break
             rescore(dets_cls,rootindex,maxpath,maxsum,boxes,classes,scores,cls_ind)
@@ -209,18 +217,12 @@ def deleteLink(dets,links, rootindex, maxpath,thesh):
 
 def dsnms(res, only_person=False):
     dets=createInputs(res)
+    for cls_id, det_cls in enumerate(dets):
+        print CLASSES[cls_id+1]
+        for frame_id, frame in enumerate(det_cls):
+            print 'frame %d, %d boxes' % (frame_id, len(frame))
+
     links=createLinks(dets)
     boxes, classes, scores = maxPath(dets,links,only_person)
     #NMS(dets)
-    # for cls_id, det_cls in enumerate(dets):
-    #    for frame_id, frame in enumerate(det_cls):
-    #        for box_id, box in enumerate(frame):
-    #            if box[4] >= CONF_THRESH:
-    #                ymin = box[1]
-    #                xmin = box[0]
-    #                ymax = box[3]
-    #                xmax = box[2]
-    #                boxes[frame_id].append(np.array([ymin, xmin, ymax, xmax]))
-    #                classes[frame_id].append(cls_id+1)
-    #                scores[frame_id].append(box[4])
     return boxes, classes, scores
