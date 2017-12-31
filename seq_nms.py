@@ -7,9 +7,8 @@ import os
 
 CLASSES=("__background__","person","bicycle","car","motorcycle","airplane","bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter","bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe","backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball","kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle","wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange","broccoli","carrot","hot dog","pizza","donut","cake","chair","couch","potted plant","bed","dining table","toilet","tv","laptop","mouse","remote","keyboard","cell phone","microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors","teddy bear","hair drier","toothbrush")
 #CONF_THRESH = 0.5
-NMS_THRESH = 0.3
-IOU_THRESH_TUPELET = 0.6
-IOU_THRESH_DELETE = 0.3
+NMS_THRESH = 0.4
+IOU_THRESH_TUPELET = 0.5
 
 '''
 修改检测结果格式，用作后续处理
@@ -103,7 +102,7 @@ def maxPath(dets_all,links_all,only_person):
             if len(maxpath) <= 3:
                 break
             rescore(dets_cls,rootindex,maxpath,maxsum,boxes,classes,scores,cls_ind)
-            deleteLink(dets_cls,links_cls,rootindex,maxpath,IOU_THRESH_DELETE)
+            deleteLink(dets_cls,links_cls,rootindex,maxpath,NMS_THRESH)
         if only_person:
             break
     max_end=time.time()
