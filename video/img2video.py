@@ -36,6 +36,7 @@ def play_video(video_name):
         cv2.putText(frame, 'Press \'q\' to stop.', (20, 20), 0, 0.5, (0, 0, 255))
         cv2.putText(frame, 'Press \'p\' to pause.', (20, 40), 0, 0.5, (0, 0, 255))
         cv2.imshow('frame',frame)
+        time.sleep(0.1)    #10fps
         key = cv2.waitKey(delay[paused])
         if key & 255 == ord('p'):
             paused = not paused

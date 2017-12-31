@@ -49,7 +49,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1]=='tiny':
         res = yolo_detection.detect_imgs(pkllist, cfg="cfg/tiny-yolo.cfg", weights="tiny-yolo.weights", nms=0, thresh=0.25)
     else:
-        res = yolo_detection.detect_imgs(pkllist, nms=0, thresh=0.25)
+        res = yolo_detection.detect_imgs(pkllist, nms=0, thresh=0.1)
     detect_end=time.time()
     print('\ntotal detect: {:.4f}s'.format(detect_end - detect_begin))
     print('average detect: {:.4f}s'.format((detect_end - detect_begin)/len(pkllist)))
@@ -79,4 +79,4 @@ if __name__ == "__main__":
         scipy.misc.imsave('video/output/frame{}.jpg'.format(i), image_process)
         print('(%d/%d)writing image time: %5.3fs \r' % (i, len(pkllist), time.time()-start), end='')
     save_end=time.time()
-    print('total writing images: {:.4f}s'.format(save_end - save_begin))
+    print('\ntotal writing images: {:.4f}s'.format(save_end - save_begin))

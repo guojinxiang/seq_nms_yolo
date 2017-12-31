@@ -100,7 +100,7 @@ def maxPath(dets_all,links_all,only_person):
                 rootindex,maxpath,maxsum=findMaxPath(links_cls,dets_cls)
             except:
                 break
-            if len(maxpath) <= 5:
+            if len(maxpath) <= 3:
                 break
             rescore(dets_cls,rootindex,maxpath,maxsum,boxes,classes,scores,cls_ind)
             deleteLink(dets_cls,links_cls,rootindex,maxpath,IOU_THRESH_DELETE)
@@ -218,5 +218,5 @@ def dsnms(res, only_person=False):
     dets=createInputs(res)
     links=createLinks(dets)
     boxes, classes, scores = maxPath(dets,links,only_person)
-    NMS(dets)
+    #NMS(dets)
     return boxes, classes, scores
