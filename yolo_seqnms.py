@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import numpy as np
 import cv2
 import time
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     pkllistfile.close()
     pkllist=[pkl.strip() for pkl in pkllist]
     load_end=time.time()
-    print 'load: {:.4f}s'.format(load_end - load_begin)
+    print('load: {:.4f}s'.format(load_end - load_begin))
 
     # detection
     detect_begin=time.time()
@@ -50,8 +51,8 @@ if __name__ == "__main__":
     else:
         res = yolo_detection.detect_imgs(pkllist, nms=0, thresh=0.25)
     detect_end=time.time()
-    print 'total detect: {:.4f}s'.format(detect_end - detect_begin)
-    print 'average detect: {:.4f}s'.format((detect_end - detect_begin)/len(pkllist))
+    print('\ntotal detect: {:.4f}s'.format(detect_end - detect_begin))
+    print('average detect: {:.4f}s'.format((detect_end - detect_begin)/len(pkllist)))
 
     # nms
     nms_begin=time.time()
@@ -60,7 +61,7 @@ if __name__ == "__main__":
     else:
         boxes, classes, scores = dsnms(res)
     nms_end=time.time()
-    print 'total nms: {:.4f}s'.format(nms_end - nms_begin)
+    print('total nms: {:.4f}s'.format(nms_end - nms_begin))
 
     # save&visualization
     save_begin=time.time()
@@ -68,12 +69,14 @@ if __name__ == "__main__":
     NUM_CLASSES = 80
     if not os.path.exists('video/output'):
         os.makedirs('video/output')
+    else:
+        for root, dirs, files in os.walk('video/output'):
+            for f in files:
+                os.unlink(os.path.join(root, f))
     for i, image_path in enumerate(pkllist):
+        start=time.time()
         image_process = get_labeled_image(image_path, PATH_TO_LABELS, NUM_CLASSES, np.array(boxes[i]), np.array(classes[i]), np.array(scores[i]))
-        #plt.imshow(image_process)
-        #plt.show()
         scipy.misc.imsave('video/output/frame{}.jpg'.format(i), image_process)
-        if i%100==0:
-            print 'finish writing image{}'.format(i)
+        print('(%d/%d)writing image time: %5.3fs \r' % (i, len(pkllist), time.time()-start), end='')
     save_end=time.time()
-    print 'total writing images: {:.4f}s'.format(save_end - save_begin)
+    print('total writing images: {:.4f}s'.format(save_end - save_begin))

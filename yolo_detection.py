@@ -1,3 +1,4 @@
+from __future__ import print_function
 from ctypes import *
 import math
 import random
@@ -131,8 +132,8 @@ def detect_img(filename, cfg="cfg/yolo.cfg", weights="yolo.weights", data="cfg/c
     start=time.time()
     r = detect(net, meta, filename, thresh=thresh, hier_thresh=hier_thresh, nms=nms)
     end=time.time()
-    print 'detection time:{:.4f}'.format(end-start)
-    print r
+    print('detection time:{:.4f}'.format(end-start))
+    print(r)
     return r
 
 def detect_imgs(filenames, cfg="cfg/yolo.cfg", weights="yolo.weights", data="cfg/coco.data", thresh=.5, hier_thresh=.5, nms=.45):
@@ -142,8 +143,7 @@ def detect_imgs(filenames, cfg="cfg/yolo.cfg", weights="yolo.weights", data="cfg
     for i, filename in enumerate(filenames):
         start=time.time()
         r = detect(net, meta, filename, thresh=thresh, hier_thresh=hier_thresh, nms=nms)
-        end=time.time()
-        print '({}/{})detection time:{:.4f}'.format(i+1, len(filenames), end-start)
+        print('(%d/%d)detection time: %5.3fs \r' % (i+1, len(filenames), time.time()-start), end="")
         rs.append(r)
     return rs
 
@@ -157,5 +157,5 @@ if __name__ == "__main__":
     meta = load_meta("cfg/coco.data")
     re = detect(net, meta, "data/dog.jpg", nms=0)
     for objet_id, objet in enumerate(re):
-        print 'objet:{}'.format(objet_id+1)
-        print objet
+        print('objet:{}'.format(objet_id+1))
+        print(objet)

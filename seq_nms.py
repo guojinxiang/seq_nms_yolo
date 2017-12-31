@@ -27,7 +27,6 @@ def createInputs(res):
             for box_ind, box in enumerate(frame):
                 if box[0]==cls:
                     nb_box += 1
-            print 'nb_box = %d' % nb_box
             cls_boxes = np.zeros((nb_box, 4), dtype=np.float64)
             cls_scores = np.zeros((nb_box, 1), dtype=np.float64)
             nb_box = 0
@@ -101,7 +100,7 @@ def maxPath(dets_all,links_all,only_person):
                 rootindex,maxpath,maxsum=findMaxPath(links_cls,dets_cls)
             except:
                 break
-            if len(maxpath) <= 1:
+            if len(maxpath) <= 5:
                 break
             rescore(dets_cls,rootindex,maxpath,maxsum,boxes,classes,scores,cls_ind)
             deleteLink(dets_cls,links_cls,rootindex,maxpath,IOU_THRESH_DELETE)
@@ -217,12 +216,7 @@ def deleteLink(dets,links, rootindex, maxpath,thesh):
 
 def dsnms(res, only_person=False):
     dets=createInputs(res)
-    for cls_id, det_cls in enumerate(dets):
-        print CLASSES[cls_id+1]
-        for frame_id, frame in enumerate(det_cls):
-            print 'frame %d, %d boxes' % (frame_id, len(frame))
-
     links=createLinks(dets)
     boxes, classes, scores = maxPath(dets,links,only_person)
-    #NMS(dets)
+    NMS(dets)
     return boxes, classes, scores

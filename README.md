@@ -43,7 +43,10 @@ python yolo_seqnms.py only_person
 ```
 python img2video.py output.mp4
 ```
-It will create and play**(at 10fps)** a video named `output.mp4`.
+- If you want to watch the video after creat it, run:
+```
+python img2video.py output.mp4 play
+```
 
 ## Results
 
