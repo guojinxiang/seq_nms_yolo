@@ -19,11 +19,7 @@ def load_image_into_numpy_array(image):
   return np.array(image.getdata()).reshape(
       (im_height, im_width, 3)).astype(np.uint8)
 
-def get_labeled_image(image_path, path_to_labels, num_classes, boxes, classes, scores):
-    label_map = label_map_util.load_labelmap(path_to_labels)
-    categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=num_classes,
-                                                                use_display_name=True)
-    category_index = label_map_util.create_category_index(categories)
+def get_labeled_image(category_index, image_path, boxes, classes, scores):
     image = Image.open(image_path)
     image_np = load_image_into_numpy_array(image)
     image_process = vis_util.visualize_boxes_and_labels_on_image_array(
@@ -67,6 +63,9 @@ if __name__ == "__main__":
     save_begin=time.time()
     PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
     NUM_CLASSES = 80
+    label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
+    categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
+    category_index = label_map_util.create_category_index(categories)
     if not os.path.exists('video/output'):
         os.makedirs('video/output')
     else:
@@ -75,7 +74,7 @@ if __name__ == "__main__":
                 os.unlink(os.path.join(root, f))
     for i, image_path in enumerate(pkllist):
         start=time.time()
-        image_process = get_labeled_image(image_path, PATH_TO_LABELS, NUM_CLASSES, np.array(boxes[i]), np.array(classes[i]), np.array(scores[i]))
+        image_process = get_labeled_image(category_index, image_path, np.array(boxes[i]), np.array(classes[i]), np.array(scores[i]))
         scipy.misc.imsave('video/output/frame{}.jpg'.format(i), image_process)
         print('(%d/%d)writing image time: %5.3fs \r' % (i, len(pkllist), time.time()-start), end='')
     save_end=time.time()
