@@ -49,8 +49,8 @@ python img2video.py output.mp4 play
 ```
 ## Document
 
-- Rapport
-- support de presentation
+- [Rapport](https://github.com/ZHANGHeng19931123/seq_nms_yolo/blob/master/doc/Rapport.pdf) 
+- [support de presentation](https://github.com/ZHANGHeng19931123/seq_nms_yolo/blob/master/doc/support%20de%20presentation.pdf) 
 
 ## Results
 
