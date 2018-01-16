@@ -1,8 +1,15 @@
 # seq_nms_yolo
 
-#### Membres: Yunyun SUN, Yutong YAN, Sixiang XU, Heng ZHANG
-
 ## Introduction
+
+<p align="center">
+    <img src="doc/intro1.gif", width="480">
+</p>
+
+<p align="center">
+    <img src="doc/intro.gif", width="480">
+</p>
+
 
 This project combines **YOLOv2**([reference](https://arxiv.org/abs/1506.02640)) and **seq-nms**([reference](https://arxiv.org/abs/1602.08465)) to realise **real time video detection**.
 
@@ -61,3 +68,6 @@ Here’s what I got from running my model over a demo video. Clic the image to w
 ## Reference
 
 This project copies lots of code from [darknet](https://github.com/pjreddie/darknet) , [Seq-NMS](https://github.com/lrghust/Seq-NMS) and  [models](https://github.com/tensorflow/models).
+
+## Membres
+- [Yunyun SUN](https://github.com/syyprime) , [Yutong YAN](https://github.com/melodiepupu) , [Sixiang XU](https://github.com/soarodo) , [Heng ZHANG](https://github.com/ZHANGHeng19931123).
