@@ -47,6 +47,10 @@ python img2video.py output.mp4
 ```
 python img2video.py output.mp4 play
 ```
+## Document
+
+- Rapport
+- support de presentation
 
 ## Results
 
