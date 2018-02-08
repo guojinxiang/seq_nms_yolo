@@ -56,8 +56,8 @@ python img2video.py output.mp4 play
 ```
 ## Document
 
-- [Rapport](https://github.com/ZHANGHeng19931123/seq_nms_yolo/blob/master/doc/Rapport.pdf) 
-- [support de presentation](https://github.com/ZHANGHeng19931123/seq_nms_yolo/blob/master/doc/support%20de%20presentation.pdf) 
+- [Techinque report](https://docs.google.com/document/d/1o1y1F5bB3CZMMYXZxHyTum6B9N1ZmCkvrn2fRiC9dIc/edit?usp=sharing) 
+- [Presentation slide](https://docs.google.com/presentation/d/1-j3y5muOubQiPvsZzTebafMdmpVQ8yq3prrBHl2wbaA/edit?usp=sharing) 
 
 ## Results
 
@@ -69,5 +69,10 @@ Here’s what I got from running my model over a demo video. Clic the image to w
 
 This project copies lots of code from [darknet](https://github.com/pjreddie/darknet) , [Seq-NMS](https://github.com/lrghust/Seq-NMS) and  [models](https://github.com/tensorflow/models).
 
-## Membres
+## Team membres
+
 - [Yunyun SUN](https://github.com/syyprime) , [Yutong YAN](https://github.com/melodiepupu) , [Sixiang XU](https://github.com/soarodo) , [Heng ZHANG](https://github.com/ZHANGHeng19931123).
+
+<p align="center">
+    <img src="doc/img.jpg", width="480">
+</p>
