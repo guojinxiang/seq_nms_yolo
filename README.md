@@ -1,5 +1,9 @@
 # seq_nms_yolo
 
+## News
+
+- Updated to YOLOv3! For more details, see [this](https://pjreddie.com/darknet/yolo/).
+
 ## Introduction
 
 <p align="center">
