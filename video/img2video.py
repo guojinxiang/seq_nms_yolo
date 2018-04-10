@@ -15,7 +15,7 @@ def generate_video(video_name):
     frame = cv2.imread(os.path.join(image_folder, images[0]))
     height, width, layers = frame.shape
     fourcc = cv2.VideoWriter_fourcc(*'mp4v') # Be sure to use lower case
-    video = cv2.VideoWriter(video_name, fourcc, 30.0, (width,height))
+    video = cv2.VideoWriter(video_name, fourcc, 10.0, (width,height))
     start_time = time.time()
     for count, image in enumerate(images):
         video.write(cv2.imread(os.path.join(image_folder, image)))

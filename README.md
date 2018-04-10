@@ -27,10 +27,11 @@ CUDNN=1		# 0 if your pc doesn't support CUDNN
 OPENCV=1	# 0 if your pc doesn't support OPENCV
 ```
 - `make` the project;
-- Download `yolo.weights` and `tiny-yolo.weights` by running:
+- Download `yolov3.weights`, `yolov2.weights` and `yolov2-tiny-voc.weights` by running:
 ```bash
-wget https://pjreddie.com/media/files/yolo.weights
-wget https://pjreddie.com/media/files/tiny-yolo-voc.weights
+wget https://pjreddie.com/media/files/yolov3.weights
+wget https://pjreddie.com/media/files/yolov2.weights
+wget https://pjreddie.com/media/files/yolov2-tiny-voc.weights
 ```
 - Copy a video file to the video directory, for example, `input.mp4`;
 - From the video directory, run:
@@ -45,6 +46,10 @@ python yolo_seqnms.py
 - If you want a fatser detect, run:
 ```
 python yolo_seqnms.py tiny
+```
+- If you want to use yolov2:
+```
+python yolo_seqnms.py v2
 ```
 - If you only want to detect person, run:
 ```

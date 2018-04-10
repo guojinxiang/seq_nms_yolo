@@ -43,12 +43,14 @@ if __name__ == "__main__":
     # detection
     detect_begin=time.time()
     if len(sys.argv) > 1 and sys.argv[1]=='tiny':
-        res = yolo_detection.detect_imgs(pkllist, cfg="cfg/tiny-yolo.cfg", weights="tiny-yolo.weights", nms=0, thresh=0.25)
+        res = yolo_detection.detect_imgs(pkllist, cfg="cfg/yolov2-tiny-voc.cfg", weights="yolov2-tiny-voc.weights", data="cfg/voc.data", nms=0, thresh=0.1)
+    elif len(sys.argv) > 1 and sys.argv[1]=='v2':
+        res = yolo_detection.detect_imgs(pkllist, cfg="cfg/yolov2.cfg", weights="yolov2.weights", nms=0, thresh=0.1)
     else:
         res = yolo_detection.detect_imgs(pkllist, nms=0, thresh=0.1)
     detect_end=time.time()
     print('\ntotal detect: {:.4f}s'.format(detect_end - detect_begin))
-    print('average detect: {:.4f}s'.format((detect_end - detect_begin)/len(pkllist)))
+    fps = len(pkllist)/(detect_end - detect_begin)
 
     # nms
     nms_begin=time.time()
@@ -75,6 +77,7 @@ if __name__ == "__main__":
     for i, image_path in enumerate(pkllist):
         start=time.time()
         image_process = get_labeled_image(category_index, image_path, np.array(boxes[i]), np.array(classes[i]), np.array(scores[i]))
+        cv2.putText(image_process,'avg fps:{:.1f}'.format(fps),(50,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2)
         scipy.misc.imsave('video/output/frame{}.jpg'.format(i), image_process)
         print('(%d/%d)writing image time: %5.3fs \r' % (i, len(pkllist), time.time()-start), end='')
     save_end=time.time()
