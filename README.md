@@ -33,6 +33,7 @@ wget https://pjreddie.com/media/files/yolov3.weights
 wget https://pjreddie.com/media/files/yolov2.weights
 wget https://pjreddie.com/media/files/yolov2-tiny-voc.weights
 ```
+- Download the face detection weights [here](https://drive.google.com/file/d/1Qh3h16ZoRcGSlDpkfsPebjt2Sf0VoQDb/view?usp=sharing).
 - Copy a video file to the video directory, for example, `input.mp4`;
 - From the video directory, run:
 ```bash
@@ -43,6 +44,10 @@ python video2img.py input.mp4
 python yolo_seqnms.py
 ```
 - **Attention: This scipt will fail if Tensorflow Object Detection API is not installed**;
+- If you want to detect face, run:
+```
+python yolo_seqnms.py face
+```
 - If you want a fatser detect, run:
 ```
 python yolo_seqnms.py tiny
