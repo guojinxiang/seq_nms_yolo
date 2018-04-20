@@ -46,6 +46,8 @@ if __name__ == "__main__":
         res = yolo_detection.detect_imgs(pkllist, cfg="cfg/yolov2-tiny-voc.cfg", weights="yolov2-tiny-voc.weights", data="cfg/voc.data", nms=0, thresh=0.1)
     elif len(sys.argv) > 1 and sys.argv[1]=='v2':
         res = yolo_detection.detect_imgs(pkllist, cfg="cfg/yolov2.cfg", weights="yolov2.weights", nms=0, thresh=0.1)
+    elif len(sys.argv) > 1 and sys.argv[1]=='face':
+        res = yolo_detection.detect_imgs(pkllist, cfg="cfg/yolov3-wider.cfg", weights="yolov3-wider.weights", data="cfg/wider.data", nms=0, thresh=0.1)
     else:
         res = yolo_detection.detect_imgs(pkllist, nms=0, thresh=0.1)
     detect_end=time.time()
@@ -54,17 +56,26 @@ if __name__ == "__main__":
 
     # nms
     nms_begin=time.time()
-    if len(sys.argv) > 1 and sys.argv[1]=='only_person':
-        boxes, classes, scores = dsnms(res, only_person=True)
+    if len(sys.argv) > 1 and sys.argv[1]=='face':
+        CLASSES=("__background__","face")
     else:
-        boxes, classes, scores = dsnms(res)
+        CLASSES=("__background__","person","bicycle","car","motorcycle","airplane","bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter","bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe","backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball","kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle","wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange","broccoli","carrot","hot dog","pizza","donut","cake","chair","couch","potted plant","bed","dining table","toilet","tv","laptop","mouse","remote","keyboard","cell phone","microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors","teddy bear","hair drier","toothbrush")
+    if len(sys.argv) > 1 and sys.argv[1]=='only_person':
+        only_person=True
+    else:
+        only_person=False
+    boxes, classes, scores = dsnms(res, CLASSES, only_person=only_person)
     nms_end=time.time()
     print('total nms: {:.4f}s'.format(nms_end - nms_begin))
 
     # save&visualization
     save_begin=time.time()
-    PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
-    NUM_CLASSES = 80
+    if len(sys.argv) > 1 and sys.argv[1]=='face':
+        PATH_TO_LABELS = os.path.join('data', 'wider_label_map.pbtxt')
+        NUM_CLASSES = 1
+    else:
+        PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
+        NUM_CLASSES = 80
     label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
     categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
     category_index = label_map_util.create_category_index(categories)

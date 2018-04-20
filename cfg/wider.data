@@ -1,0 +1,6 @@
+classes= 1
+train  = /home/zh05248q/wider/wider_train_list.txt
+valid  = /home/pjreddie/data/voc/2007_test.txt
+names = data/wider.names
+backup = backup
+

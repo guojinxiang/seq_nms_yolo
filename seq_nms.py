@@ -5,7 +5,6 @@ import time
 import copy
 import os
 
-CLASSES=("__background__","person","bicycle","car","motorcycle","airplane","bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter","bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe","backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball","kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle","wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange","broccoli","carrot","hot dog","pizza","donut","cake","chair","couch","potted plant","bed","dining table","toilet","tv","laptop","mouse","remote","keyboard","cell phone","microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors","teddy bear","hair drier","toothbrush")
 #CONF_THRESH = 0.5
 NMS_THRESH = 0.4
 IOU_THRESH_TUPELET = 0.5
@@ -17,7 +16,7 @@ IOU_THRESH_TUPELET = 0.5
 第三维：bbox
 第四维：x1,y1,x2,y2,score
 '''
-def createInputs(res):
+def createInputs(res, CLASSES):
     create_begin=time.time()
     dets=[[] for i in CLASSES[1:]] #保存最终结果
     for cls_ind,cls in enumerate(CLASSES[1:]): #类
@@ -43,7 +42,7 @@ def createInputs(res):
     print 'create inputs: {:.4f}s'.format(create_end - create_begin)
     return dets
 
-def createLinks(dets_all):
+def createLinks(dets_all, CLASSES):
     link_begin=time.time()
     links_all=[]
     #建立每相邻两帧之间的link关系
@@ -213,9 +212,9 @@ def deleteLink(dets,links, rootindex, maxpath,thesh):
                     if delete_ind in priorbox:
                         priorbox.remove(delete_ind)
 
-def dsnms(res, only_person=False):
-    dets=createInputs(res)
-    links=createLinks(dets)
+def dsnms(res, CLASSES, only_person=False):
+    dets=createInputs(res, CLASSES)
+    links=createLinks(dets, CLASSES)
     boxes, classes, scores = maxPath(dets,links,only_person)
     #NMS(dets)
     return boxes, classes, scores
