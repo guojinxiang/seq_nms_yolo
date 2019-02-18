@@ -4,7 +4,7 @@
 
 - Updated to YOLOv3! For more details, see [this](https://pjreddie.com/darknet/yolo/).
 
-## Introduction
+## Introduction (Chinese version introduction below)
 
 <p align="center">
     <img src="doc/intro1.gif", width="480">
@@ -90,3 +90,13 @@ This project copies lots of code from [darknet](https://github.com/pjreddie/dark
 <p align="center">
     <img src="doc/img.jpg", width="480">
 </p>
+
+---
+
+老哥们，本人水平有限，代码就这`*`样了，不服来Pull :)
+
+TODO:
+- 依赖项太TM多了(有什么美观的画BBox的代码推荐吗？)
+- 最近重构了一下代码，清爽多了
+- 没有预训练模型下载地址
+- 最近做了一版improved版本，基于YOLOv3在ImageNet VID上刷到了81.1% mAP。最近太忙，随缘更吧
